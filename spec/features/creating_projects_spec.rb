@@ -8,5 +8,8 @@ feature 'Create projects' do
     fill_in 'Description', with: 'Text editor for Mac'
     click_button 'Create Project'
     expect(page).to have_content 'project created'
+    project = Project.where(name: 'Textmate 2').first
+    expect(page.current_url).to eql project_url(project)
+    expect(page).to have_title 'Textmate 2 - Projects - Ticketee'
   end
 end
