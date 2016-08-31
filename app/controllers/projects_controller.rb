@@ -13,12 +13,13 @@ class ProjectsController < ApplicationController
       flash[:notice] = 'project created'
       redirect_to @project
     else
-      # do something
+      flash[:alert] = 'Project has not been created'
+      render 'new'
     end
   end
 
   def show
-    @project = Project.find(params[:id])    
+    @project = Project.find(params[:id])
   end
 
   private
