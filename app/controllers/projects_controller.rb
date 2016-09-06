@@ -8,7 +8,7 @@ class ProjectsController < ApplicationController
   end
 
   def create
-    @project = Project.new(required_params)
+    @project = Project.new(project_params)
 
     if @project.save
       flash[:notice] = 'project created'
@@ -23,10 +23,25 @@ class ProjectsController < ApplicationController
     @project = Project.find(params[:id])
   end
 
+  def edit
+	   @project = Project.find(params[:id])
+  end
+
+  def update
+    @project = Project.find(params[:id])
+    if @project.update(project_params)
+      flash[:notice] = 'Project Updated'
+      redirect_to @project
+    else
+      flash[:alert] = 'Fail to update project'
+      render 'edit'
+    end
+  end
+
   private
 
   # Prevent security risks
-  def required_params
+  def project_params
     params.require(:project).permit(:name, :description)
   end
 end
