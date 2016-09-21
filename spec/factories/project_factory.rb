@@ -1,5 +1,5 @@
 FactoryGirl.define do
   factory :project do
-    name 'example project'
+    name 'Example project'
   end
 end

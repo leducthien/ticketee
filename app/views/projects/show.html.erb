@@ -5,3 +5,11 @@
 <%= link_to 'Delete project', project_path(@project), method: :delete, data: { confirm: 'Are you sure?' } %>
 
 <%= link_to 'New ticket', new_project_ticket_path(@project)  %>
+
+<ul>
+  <% @project.tickets.each do |ticket| %>
+    <li>
+      <%= link_to ticket.title, [@project, ticket] %>
+    </li>
+  <% end %>
+</ul>
