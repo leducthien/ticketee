@@ -1,7 +1,7 @@
 class TicketsController < ApplicationController
   # Order is important here. We need to find a project first before finding its ticket.
   before_action :set_project
-  before_action :set_ticket, only: [:show, :edit, :update]
+  before_action :set_ticket, only: [:show, :edit, :update, :destroy]
 
   def new
     @ticket = @project.tickets.build
@@ -34,6 +34,13 @@ class TicketsController < ApplicationController
       render 'edit'
       # or render action: "edit"
     end
+  end
+
+  def destroy
+    @ticket.destroy
+
+    flash[:notice] = 'Ticket Deleted'
+    redirect_to @project
   end
 
   private
