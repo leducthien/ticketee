@@ -1,0 +1,5 @@
+<%= @ticket.title %>
+<%= @ticket.description %>
+
+<%= link_to 'Edit Ticket', edit_project_ticket_path(@project, @ticket) %>
+<!--  or <%= link_to "Edit Ticket", [:edit, @project, @ticket] %> -->
