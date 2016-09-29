@@ -11,6 +11,9 @@ Rails.application.routes.draw do
 
   resources :users
 
+  get '/sign_in' => 'sessions#new' # or get '/sign_in', to: 'sessions#new'
+  post '/sign_in' => 'sessions#create'
+
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'
 

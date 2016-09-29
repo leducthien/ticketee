@@ -1,0 +1,12 @@
+<h1>Sign in</h1>
+
+<!-- or form_for(:sign_in, method: 'POST') ... -->
+<%= form_for(:user, url: sign_in_path) do |f| %>
+  <%= f.label :name %>
+  <%= f.text_field :name %>
+
+  <%= f.label :password %>
+  <%= f.password_field :password %>
+
+  <%= f.submit 'Sign in' %>
+<% end %>
