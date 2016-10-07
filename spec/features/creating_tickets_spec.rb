@@ -2,9 +2,11 @@ require 'spec_helper'
 
 feature 'Create tickets' do
   before do
-    FactoryGirl.create(:project, name: "Atom")
+    project = FactoryGirl.create(:project, name: "Atom")
+    @user = FactoryGirl.create(:user)
+    log_in_as @user
     visit '/'
-    click_link 'Atom'
+    click_link project.name
     click_link 'New ticket'
   end
 
@@ -13,6 +15,7 @@ feature 'Create tickets' do
     fill_in 'Description', with: 'a sample description'
     click_button 'Create Ticket'
     expect(page).to have_content 'Ticket created'
+    expect(page).to have_content "Created by #{@user.email}"
   end
 
   scenario 'Cannot create a new ticket with empty title' do

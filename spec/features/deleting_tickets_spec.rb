@@ -3,7 +3,9 @@ require 'spec_helper'
 feature 'Deleting tickets' do
   scenario 'Can delete a ticket' do
     project = FactoryGirl.create(:project)
-    ticket = FactoryGirl.create(:ticket, project: project)
+    user = FactoryGirl.create(:user)
+    ticket = FactoryGirl.create(:ticket, project: project, user: user)
+    log_in_as user
     visit '/'
     click_link project.name
     click_link ticket.title

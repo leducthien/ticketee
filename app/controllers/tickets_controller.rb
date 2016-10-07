@@ -1,6 +1,8 @@
 class TicketsController < ApplicationController
+
   # Order is important here. We need to find a project first before finding its ticket.
   before_action :set_project
+  before_action :require_signin!, except: [:show, :index]
   before_action :set_ticket, only: [:show, :edit, :update, :destroy]
 
   def new
@@ -9,6 +11,7 @@ class TicketsController < ApplicationController
 
   def create
     @ticket = @project.tickets.build(ticket_params)
+    @ticket.user = current_user
     if @ticket.save
       flash[:notice] = 'Ticket created'
       redirect_to [@project, @ticket]

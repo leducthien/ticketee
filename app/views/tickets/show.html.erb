@@ -1,5 +1,6 @@
 <%= @ticket.title %>
 <%= @ticket.description %>
+<span>Created by <%= @ticket.user.email %> </span>
 
 <%= link_to 'Edit Ticket', edit_project_ticket_path(@project, @ticket) %>
 <!--  or <%= link_to "Edit Ticket", [:edit, @project, @ticket] %> -->
