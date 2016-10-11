@@ -1,11 +1,28 @@
 require 'spec_helper'
 
 feature 'Viewing tickets' do
-  scenario 'Can view all project tickets' do
-    project_atom = FactoryGirl.create(:project, name: 'Atom')
-    FactoryGirl.create(:ticket, title: 'ticket 1', description: 'inside browser', project: project_atom)
+  before do
+    @project_atom = FactoryGirl.create(:project, name: 'Atom')
+    @ticket_without_user = FactoryGirl.create(:ticket, title: 'ticket 1', description: 'inside browser', project: @project_atom)
+    @user = FactoryGirl.create(:user)
+    @ticket_with_user = FactoryGirl.create(:ticket, project: @project_atom)
+    @ticket_with_user.update(user: @user)
     visit '/'
-    click_link 'Atom'
-    expect(page).to have_content 'ticket 1'
+    click_link @project_atom.name
+  end
+
+  scenario 'Can view all project tickets' do
+    expect(page).to have_content @ticket_with_user.title
+    expect(page).to have_content @ticket_without_user.title
+  end
+
+  scenario 'Can view a ticket without an associated user' do
+    click_link @ticket_without_user.title
+    expect(page).to_not have_content @user.email
+  end
+
+  scenario 'Can view a ticket with an associated user' do
+    click_link @ticket_with_user.title
+    expect(page).to have_content @user.email
   end
 end
