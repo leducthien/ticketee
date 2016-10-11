@@ -3,6 +3,8 @@ require 'spec_helper'
 
 feature 'Editing projects' do
   before do
+    admin_user = FactoryGirl.create(:user, admin: true)
+    log_in_as admin_user
     project = FactoryGirl.create(:project, name: 'Text Mate 2')
     visit '/'
     click_link 'Text Mate 2'

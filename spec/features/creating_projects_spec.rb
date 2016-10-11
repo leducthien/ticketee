@@ -2,6 +2,8 @@ require 'spec_helper'
 
 feature 'Create projects' do
   before do
+    admin_user = FactoryGirl.create(:user, admin: true)
+    log_in_as admin_user
     visit '/'
     click_link 'New project'
   end
