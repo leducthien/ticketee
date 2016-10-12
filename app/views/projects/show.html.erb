@@ -1,8 +1,9 @@
 <%= title(@project.name, 'Projects') %>
 
-<%= link_to 'Edit Project', edit_project_path(@project) %>
-
-<%= link_to 'Delete project', project_path(@project), method: :delete, data: { confirm: 'Are you sure?' } %>
+<% admins_only do %>
+  <%= link_to 'Edit Project', edit_project_path(@project) %>
+  <%= link_to 'Delete project', project_path(@project), method: :delete, data: { confirm: 'Are you sure?' } %>
+<% end %>
 
 <%= link_to 'New ticket', new_project_ticket_path(@project)  %>
 

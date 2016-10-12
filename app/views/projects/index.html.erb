@@ -1,6 +1,8 @@
 <%= link_to 'Sign Up', new_user_path %>
 
-<%= link_to 'New project', new_project_path %>
+<% admins_only do %>
+  <%= link_to 'New project', new_project_path %>
+<% end %>
 
 <% @projects.each do |p| %>
   <%= link_to p.name, p %>
