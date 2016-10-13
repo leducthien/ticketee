@@ -50,15 +50,6 @@ class ProjectsController < ApplicationController
 
   private
 
-  def authorize_admin!
-    require_signin!
-
-    unless current_user.admin?
-      flash[:alert] = 'You must be admin to do that'
-      redirect_to root_path
-    end
-  end
-  # Prevent security risks
   def project_params
     params.require(:project).permit(:name, :description)
   end
