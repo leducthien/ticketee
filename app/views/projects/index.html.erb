@@ -2,6 +2,7 @@
 
 <% admins_only do %>
   <%= link_to 'New project', new_project_path %>
+  <%= link_to 'Admin', admin_root_path %>
 <% end %>
 
 <% @projects.each do |p| %>
