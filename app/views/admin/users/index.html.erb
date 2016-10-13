@@ -2,6 +2,6 @@
 
 <ul id='users'>
   <% @users.each do |u| %>
-    <li><%= link_to u.email, [:admin, u] %></li>
+    <li><%= link_to u, [:admin, u] %></li>
   <% end %>
 </ul>

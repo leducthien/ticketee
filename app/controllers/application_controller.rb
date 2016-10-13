@@ -6,6 +6,7 @@ class ApplicationController < ActionController::Base
   private
 
   def authorize_admin!
+    # byebug
     require_signin!
 
     unless current_user.admin?
