@@ -1,0 +1,12 @@
+<%= form_for [:admin,@user] do |f| %>
+  <%= f.label :email %>
+  <%= f.text_field :email %>
+
+  <%= f.label :password %>
+  <%= f.password_field :password %>
+
+  <%= f.check_box :admin %>
+  <%= f.label :admin, 'Is an admin?' %>
+
+  <%= f.submit %>
+<% end %>

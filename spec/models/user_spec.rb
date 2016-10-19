@@ -14,6 +14,7 @@ describe User do
 
       u.password_confirmation = 'password'
       u.save
+      u.email = 'user1@example.com'
       expect(u).to be_valid
     end
 
@@ -32,6 +33,16 @@ describe User do
 
     it 'does not authenticate with an incorrect password' do
       expect(user.authenticate('hunter')).to_not be
+    end
+  end
+
+  describe 'Email' do
+    it 'requires email to save' do
+      u = User.create(name: 'user 1', password: 'password', password_confirmation: 'password')
+      u.save
+      expect(u).to_not be_valid
+      u.email = 'user1@example.com'
+      expect(u).to be_valid
     end
   end
 end

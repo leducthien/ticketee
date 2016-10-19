@@ -2,7 +2,7 @@ require 'spec_helper'
 
 feature 'Create tickets' do
   before do
-    log_in_as FactoryGirl.create(:admin_user)
+    # log_in_as FactoryGirl.create(:admin_user)
     project = FactoryGirl.create(:project, name: "Atom")
     @user = FactoryGirl.create(:user)
     log_in_as @user
