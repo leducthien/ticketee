@@ -1,5 +1,6 @@
 class Admin::UsersController < Admin::BaseController
-  before_action :set_user, only: [:show, :edit, :update]
+  before_action :set_user, only: [:show, :edit, :update, :destroy]
+
   def index
     @users = User.order(:email)
   end
@@ -39,6 +40,15 @@ class Admin::UsersController < Admin::BaseController
     end
   end
 
+  def destroy
+    if @user == current_user
+      flash[:alert] = 'You cannot delete yourself'
+    else
+      @user.destroy
+      flash[:notice] = 'User deleted'
+    end
+    redirect_to admin_users_path
+  end
 
   private
 
