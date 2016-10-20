@@ -11,6 +11,7 @@ feature 'Viewing projects' do
     define_permission!(user, :view, @project_tm)
     FactoryGirl.create(:project, name: 'Ambiot')
     visit '/'
+    expect(page).to_not have_content 'Ambiot'
   end
 
   scenario 'Can view a project' do
@@ -20,7 +21,7 @@ feature 'Viewing projects' do
 
   scenario 'Can view all projects' do
     expect(page).to have_content 'Text Mate 2'
-    expect(page).to have_content 'Ambiot'
+    expect(page).to have_content project.name
     click_link project.name
     expect(page.current_url).to eql project_url(project)
   end
