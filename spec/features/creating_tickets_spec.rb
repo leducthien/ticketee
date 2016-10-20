@@ -5,6 +5,7 @@ feature 'Create tickets' do
     # log_in_as FactoryGirl.create(:admin_user)
     project = FactoryGirl.create(:project, name: "Atom")
     @user = FactoryGirl.create(:user)
+    define_permission!(@user, :view, project)
     log_in_as @user
     visit '/'
     click_link project.name

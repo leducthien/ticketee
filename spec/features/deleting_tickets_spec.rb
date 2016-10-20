@@ -5,6 +5,7 @@ feature 'Deleting tickets' do
     project = FactoryGirl.create(:project)
     user = FactoryGirl.create(:user)
     ticket = FactoryGirl.create(:ticket, project: project, user: user)
+    define_permission!(user, :view, project)
     log_in_as user
     visit '/'
     click_link project.name

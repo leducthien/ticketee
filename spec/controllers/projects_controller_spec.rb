@@ -3,16 +3,18 @@ require 'spec_helper'
 describe ProjectsController do
   let!(:user) { FactoryGirl.create(:user) }
 
-  it 'displays errors for a missing project' do
-    get :show, id: 'not-exist'
-    expect(response).to redirect_to projects_path
-    message = 'Project not exist'
-    expect(flash[:alert]).to eql message
-  end
+
 
   context 'standard users' do
     before do
       sign_in user
+    end
+    
+    it 'displays errors for a missing project' do
+      get :show, id: 'not-exist'
+      expect(response).to redirect_to projects_path
+      message = 'Project not exist'
+      expect(flash[:alert]).to eql message
     end
 
     { new: :get, create: :post, edit: :get, update: :put, destroy: :delete}.each do |action, method|
@@ -23,5 +25,11 @@ describe ProjectsController do
       end
     end
 
+    it 'cannot access the show action without permission' do
+      project = FactoryGirl.create(:project)
+      get :show, id: project.id
+      expect(response).to redirect_to(projects_path)
+      expect(flash[:alert]).to eql 'Project not exist'
+    end
   end
 end

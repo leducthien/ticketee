@@ -5,8 +5,10 @@ feature 'Viewing tickets' do
     @project_atom = FactoryGirl.create(:project, name: 'Atom')
     @ticket_without_user = FactoryGirl.create(:ticket, title: 'ticket 1', description: 'inside browser', project: @project_atom)
     @user = FactoryGirl.create(:user)
+    define_permission!(@user, :view, @project_atom)
     @ticket_with_user = FactoryGirl.create(:ticket, project: @project_atom)
     @ticket_with_user.update(user: @user)
+    log_in_as @user
     visit '/'
     click_link @project_atom.name
   end
