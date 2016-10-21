@@ -2,7 +2,7 @@ class TicketsController < ApplicationController
 
   # Order is important here. We need to find a project first before finding its ticket.
   before_action :set_project
-  before_action :require_signin!, except: [:show, :index]
+  before_action :require_signin!
   before_action :set_ticket, only: [:show, :edit, :update, :destroy]
 
   def new
@@ -49,7 +49,10 @@ class TicketsController < ApplicationController
   private
 
   def set_project
-    @project = Project.find(params[:project_id])
+    @project = Project.for(current_user).find(params[:project_id])
+  rescue ActiveRecord::RecordNotFound
+    flash[:alert] = 'Project not exist'
+    redirect_to root_path
   end
 
   def set_ticket
