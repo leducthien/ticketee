@@ -11,4 +11,26 @@ describe TicketsController do
     expect(response).to redirect_to(root_path)
     expect(flash[:alert]).to eql 'Project not exist'
   end
+
+  context 'with permission to view projects' do
+    before do
+      sign_in user
+      define_permission!(user, 'view', project)
+    end
+
+    it 'cannot begin to create a ticket' do
+      get :new, project_id: project.id
+      cannot_create_tickets!
+    end
+
+    it 'cannot create a ticket' do
+      post :create, project_id: project.id, ticket: { title: 'ticket1', description: 'a sample description' }
+      cannot_create_tickets!
+    end
+
+    def cannot_create_tickets!
+      response.should redirect_to(project)
+      expect(flash[:alert]).to eql "You cannot create tickets for this project"
+    end
+  end
 end

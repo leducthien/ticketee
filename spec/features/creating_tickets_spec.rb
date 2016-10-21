@@ -6,6 +6,7 @@ feature 'Create tickets' do
     project = FactoryGirl.create(:project, name: "Atom")
     @user = FactoryGirl.create(:user)
     define_permission!(@user, :view, project)
+    define_permission!(@user, 'create tickets'.to_sym, project)
     log_in_as @user
     visit '/'
     click_link project.name
@@ -13,6 +14,7 @@ feature 'Create tickets' do
   end
 
   scenario 'Can create a new ticket' do
+    # byebug
     fill_in 'Title', with: 'ticket 1'
     fill_in 'Description', with: 'a sample description'
     click_button 'Create Ticket'
@@ -21,6 +23,7 @@ feature 'Create tickets' do
   end
 
   scenario 'Cannot create a new ticket with empty title' do
+
     click_button 'Create Ticket'
     expect(page).to have_content 'Create ticket failed'
   end
