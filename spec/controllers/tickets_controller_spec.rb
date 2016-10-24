@@ -48,5 +48,11 @@ describe TicketsController do
       expect(flash[:alert]).to eql 'You cannot edit tickets for this project'
     end
 
+    it 'cannot delete a ticket without permission' do
+      delete :destroy, project_id: project.id, id: ticket.id
+      response.should redirect_to project
+      expect(flash[:alert]).to eql 'You cannot delete tickets for this project'
+    end
+
   end
 end
