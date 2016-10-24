@@ -32,5 +32,21 @@ describe TicketsController do
       response.should redirect_to(project)
       expect(flash[:alert]).to eql "You cannot create tickets for this project"
     end
+
+    it 'cannot edit a ticket without permission' do
+        get :edit, project_id: project.id, id: ticket.id
+        cannot_edit_tickets!
+    end
+
+    it 'cannot update a ticket without permission' do
+      patch :update, project_id: project.id, id: ticket.id, ticket: { title: '', description: '' }
+      cannot_edit_tickets!
+    end
+
+    def cannot_edit_tickets!
+      response.should redirect_to project
+      expect(flash[:alert]).to eql 'You cannot edit tickets for this project'
+    end
+
   end
 end

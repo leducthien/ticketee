@@ -5,6 +5,7 @@ class TicketsController < ApplicationController
   before_action :require_signin!
   before_action :set_ticket, only: [:show, :edit, :update, :destroy]
   before_action :authorize_create!, only: [:new, :create]
+  before_action :authorize_edit!, only: [:edit, :update]
 
   def new
     @ticket = @project.tickets.build
@@ -69,6 +70,13 @@ class TicketsController < ApplicationController
     if !current_user.admin? && cannot?('create tickets'.to_sym, @project)
       flash[:alert] = 'You cannot create tickets for this project'
       redirect_to project_path(@project)
+    end
+  end
+
+  def authorize_edit!
+    if !current_user.admin? && cannot?('edit tickets'.to_sym, @project)
+      flash[:alert] = 'You cannot edit tickets for this project'
+      redirect_to @project
     end
   end
 end
