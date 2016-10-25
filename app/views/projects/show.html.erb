@@ -5,7 +5,9 @@
   <%= link_to 'Delete project', project_path(@project), method: :delete, data: { confirm: 'Are you sure?' } %>
 <% end %>
 
-<%= link_to 'New ticket', new_project_ticket_path(@project)  %>
+<% authorize?('create tickets', @project) do %>
+  <%= link_to 'New ticket', new_project_ticket_path(@project)  %>
+<% end %>
 
 <ul>
   <% @project.tickets.each do |ticket| %>

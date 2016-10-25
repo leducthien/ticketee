@@ -2,7 +2,11 @@
 <%= @ticket.description %>
 <span><%= "Created by #{@ticket.user.email}" unless @ticket.user.nil? %> </span>
 
-<%= link_to 'Edit Ticket', edit_project_ticket_path(@project, @ticket) %>
-<!--  or <%= link_to "Edit Ticket", [:edit, @project, @ticket] %> -->
+<% authorize?('edit tickets', @project) do %>
+  <%= link_to 'Edit Ticket', edit_project_ticket_path(@project, @ticket) %>
+  <!--  or <%= link_to "Edit Ticket", [:edit, @project, @ticket] %> -->
+<% end %>
 
-<%= link_to 'Delete Ticket', project_ticket_path(@project, @ticket), method: :delete, data: { confirm: 'Are you sure?' } %>
+<% authorize?('delete tickets', @project) do %>
+  <%= link_to 'Delete Ticket', project_ticket_path(@project, @ticket), method: :delete, data: { confirm: 'Are you sure?' } %>
+<% end %>
