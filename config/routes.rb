@@ -1,8 +1,5 @@
 Rails.application.routes.draw do
-  namespace :admin do
-    root 'base#index'
-    resources :users
-  end
+
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
@@ -14,11 +11,21 @@ Rails.application.routes.draw do
     resources :tickets
   end
 
+  namespace :admin do
+    root 'base#index'
+    resources :users do
+      resources :permissions
+
+      put 'permissions', to: 'permissions#set', as: 'set_permissions'
+    end
+  end
+
   resources :users
 
   get '/sign_in' => 'sessions#new' # or get '/sign_in', to: 'sessions#new'
   post '/sign_in' => 'sessions#create'
 
+  delete '/sign_out', to: 'sessions#destroy', as: 'sign_out'
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'
 

@@ -1,0 +1,27 @@
+Permissions for <%= @user.email %>
+
+<%= form_tag admin_user_set_permissions_path, method: :put do %>
+
+  <thead>
+    <th>Project</th>
+    <% permissions.each do |key, value| %>
+      <th><%= value %></th>
+    <% end %>
+  </thead>
+
+  <tbody>
+    <% @projects.each do |p| %>
+        <tr>
+          <td><%= p.name %></td>
+          <% permissions.each do |key, value| %>
+              <td><%= check_box_tag "permissions[#{p.id}][#{key}]",
+              @ability.can?(key.to_sym, p),
+              @ability.can?(key.to_sym, p) %></td>
+          <% end %>
+        </tr>
+    <% end %>
+
+  </tbody>
+
+  <%= submit_tag 'Update' %>
+<% end %>
