@@ -38,11 +38,15 @@ feature 'Create tickets' do
   scenario 'Create a new ticket with an attachment' do
     fill_in "Title", with: 'Add documentation for blink tag'
     fill_in 'Description', with: 'The blink tag has a speed attribute'
-    attach_file 'File', 'spec/fixtures/speed.txt'
+    attach_file "File #1", Rails.root.join("spec/fixtures/speed.txt")
+    attach_file "File #2", Rails.root.join("spec/fixtures/spin.txt")
+    attach_file "File #3", Rails.root.join("spec/fixtures/gradient.txt")
     click_button 'Create Ticket'
     expect(page).to have_content 'Ticket created'
     # within("#ticket .asset") do
       expect(page).to have_content("speed.txt")
+      expect(page).to have_content("spin.txt")
+      expect(page).to have_content("gradient.txt")
     # end
   end
 end

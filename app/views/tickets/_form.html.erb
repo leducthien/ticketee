@@ -9,9 +9,11 @@
   <%= f.label :description %>
   <%= f.text_area :description %>
 
-  <%= f.label :asset, 'File' %>
-  <%= f.file_field :asset %>
-
+  <% number = 0 %>
+  <%= f.fields_for :assets do |asset| %>
+    <%= asset.label :asset, "File ##{number += 1}" %>
+    <%= asset.file_field :asset %>
+  <% end %>
   <%= f.submit %>
 
 <% end %>
