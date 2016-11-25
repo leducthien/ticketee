@@ -21,6 +21,7 @@ Rails.application.routes.draw do
   end
 
   resources :users
+  resources :files
 
   get '/sign_in' => 'sessions#new' # or get '/sign_in', to: 'sessions#new'
   post '/sign_in' => 'sessions#create'

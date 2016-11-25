@@ -10,7 +10,7 @@ class TicketsController < ApplicationController
 
   def new
     @ticket = @project.tickets.build
-    3.times { @ticket.assets.build }
+    create_empty_files
   end
 
   def create
@@ -22,6 +22,9 @@ class TicketsController < ApplicationController
       redirect_to [@project, @ticket]
     else
       flash[:alert] = 'Create ticket failed'
+      unless @ticket.assets.present?
+        create_empty_files
+      end
       render 'new'
     end
   end
@@ -88,5 +91,9 @@ class TicketsController < ApplicationController
       flash[:alert] = 'You cannot delete tickets for this project'
       redirect_to @project
     end
+  end
+
+  def create_empty_files
+    3.times { @ticket.assets.build }
   end
 end

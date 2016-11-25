@@ -5,7 +5,7 @@
 <% if @ticket.assets.present? %>
   Attached files
   <% @ticket.assets.each do |asset| %>
-    <%= link_to File.basename(asset.asset.path), asset.asset.url %>
+    <%= link_to File.basename(asset.asset.path), file_path(asset) %>
 
     <%= number_to_human_size asset.asset.size %>
   <% end %>
