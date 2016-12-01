@@ -94,6 +94,6 @@ class TicketsController < ApplicationController
   end
 
   def create_empty_files
-    3.times { @ticket.assets.build }
+    @ticket.assets.build
   end
 end

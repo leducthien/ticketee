@@ -35,6 +35,9 @@ gem 'bcrypt', '~> 3.1.7'
 # authorization
 gem 'cancan', '1.6.10'
 
+# gem 'selenium-webdriver', '3.0.3'
+gem 'poltergeist'
+
 # File upload
 gem 'carrierwave', '0.8.0'
 
@@ -48,6 +51,7 @@ end
 group :test do
   gem 'capybara', "2.1.0"
   gem 'factory_girl_rails', '~> 4.2.1'
+  gem 'database_cleaner', '1.0.1'
 end
 
 group :development do
