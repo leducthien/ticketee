@@ -1,0 +1,7 @@
+<%= form_for [@ticket, @comment] do |f| %>
+    <%= f.label :text %>
+    <%= f.text_field :text %>
+
+    <%= f.submit %>
+
+<% end %>

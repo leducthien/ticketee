@@ -20,3 +20,10 @@
 <% authorize?('delete tickets', @project) do %>
   <%= link_to 'Delete Ticket', project_ticket_path(@project, @ticket), method: :delete, data: { confirm: 'Are you sure?' } %>
 <% end %>
+
+<% if @ticket.comments.exists? %>
+  <%= render @ticket.comments.select(&:persisted?) %>
+<% else %>
+  There are no comments for this ticket.
+<% end %>
+<%= render 'comments/form' %>

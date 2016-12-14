@@ -11,6 +11,10 @@ Rails.application.routes.draw do
     resources :tickets
   end
 
+  resources :tickets do
+    resources :comments
+  end
+  
   namespace :admin do
     root 'base#index'
     resources :users do
