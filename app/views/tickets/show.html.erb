@@ -1,5 +1,7 @@
 <%= @ticket.title %>
 <span><%= "Created by #{@ticket.user.email}" unless @ticket.user.nil? %> </span>
+
+<%= render @ticket.state if @ticket.state %>
 <%= simple_format @ticket.description %>
 
 <% if @ticket.assets.present? %>

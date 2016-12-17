@@ -9,4 +9,8 @@
 admin_user = User.create(email: 'admin@example.com', name: 'admin',
   password: 'foobar', password_confirmation: 'foobar', admin: true)
 
-Project.create(name: 'Ticketee')                                                                    
+Project.create(name: 'Ticketee')
+
+State.create(name: 'New', background: '#85FF00', color: 'white')
+State.create(name: 'Open', background: '#00CFFD', color: 'white')
+State.create(name: 'Closed', background: 'black', color: 'white')

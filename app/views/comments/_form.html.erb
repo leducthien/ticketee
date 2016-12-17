@@ -2,6 +2,10 @@
     <%= f.label :text %>
     <%= f.text_field :text %>
 
+    <%= f.label :state_id %>
+    <%= f.select :state_id, @states.map { |s| [s.name, s.id] },
+      selected: @comment.state_id %>
+
     <%= f.submit %>
 
 <% end %>

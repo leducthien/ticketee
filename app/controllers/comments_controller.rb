@@ -11,6 +11,7 @@ class CommentsController < ApplicationController
       redirect_to project_ticket_path(@project, @ticket)
     else
       flash[:alert] = 'Failed to create comment'
+      @states = State.all
       render 'tickets/show'
     end
   end
@@ -18,6 +19,6 @@ class CommentsController < ApplicationController
   private
 
   def comment_params
-    params.require(:comment).permit(:text)
+    params.require(:comment).permit(:text, :state_id)
   end
 end
