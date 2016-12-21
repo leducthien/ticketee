@@ -1,5 +1,5 @@
 <%= div_for comment do %>
   <%= comment.user %>
   <%= simple_format comment.text %>
-  <%= comment.state %>
+  <%= state_for(comment) %>
 <% end %>
