@@ -14,7 +14,7 @@ Rails.application.routes.draw do
   resources :tickets do
     resources :comments
   end
-  
+
   namespace :admin do
     root 'base#index'
     resources :users do
@@ -22,6 +22,7 @@ Rails.application.routes.draw do
 
       put 'permissions', to: 'permissions#set', as: 'set_permissions'
     end
+    resources :states
   end
 
   resources :users
