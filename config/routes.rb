@@ -22,7 +22,11 @@ Rails.application.routes.draw do
 
       put 'permissions', to: 'permissions#set', as: 'set_permissions'
     end
-    resources :states
+    resources :states do
+      member do
+        get :make_default
+      end
+    end
   end
 
   resources :users
@@ -32,6 +36,8 @@ Rails.application.routes.draw do
   post '/sign_in' => 'sessions#create'
 
   delete '/sign_out', to: 'sessions#destroy', as: 'sign_out'
+
+
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'
 

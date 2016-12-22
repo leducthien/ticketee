@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161219190710) do
+ActiveRecord::Schema.define(version: 20161222003324) do
 
   create_table "assets", force: :cascade do |t|
     t.string   "asset"
@@ -51,9 +51,10 @@ ActiveRecord::Schema.define(version: 20161219190710) do
   end
 
   create_table "states", force: :cascade do |t|
-    t.string "name"
-    t.string "color"
-    t.string "background"
+    t.string  "name"
+    t.string  "color"
+    t.string  "background"
+    t.boolean "default"
   end
 
   create_table "tickets", force: :cascade do |t|

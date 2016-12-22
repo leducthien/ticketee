@@ -18,6 +18,17 @@ class Admin::StatesController < Admin::BaseController
     end
   end
 
+  def make_default
+    state = State.find(params[:id])
+    true_state = State.find_by(default: true)
+    if state != true_state
+      # find ways to replace following 2 separate db calls by 1 call
+      state.update!(default: true)
+      true_state.update!(default: false)
+    end
+    redirect_to admin_states_path
+  end
+
   private
 
   def state_params

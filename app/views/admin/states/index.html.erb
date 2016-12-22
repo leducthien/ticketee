@@ -1,5 +1,11 @@
+<h1>List of states</h1>
+
 <% @states.each do |state| %>
-  <%= state %>
+  <% if state.default %>
+    <%= state %> (default) <br/>
+  <% else %>
+    <%= state %> | <%= link_to 'Make default', make_default_admin_state_path(state) %> <br/>
+  <% end %>
 <% end %>
 
 <%= link_to 'New State', new_admin_state_path %>
