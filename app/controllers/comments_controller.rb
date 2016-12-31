@@ -1,4 +1,6 @@
 class CommentsController < ApplicationController
+  include ApplicationHelper
+
   before_action :require_signin!
 
   def create
@@ -19,10 +21,10 @@ class CommentsController < ApplicationController
   private
 
   def comment_params
-    if can?("change states", @ticket.project)
-      params.require(:comment).permit(:text, :state_id)
-    else
-      params.require(:comment).permit(:text)
+    permitted = params.require(:comment).permit(:text, :tag_names)
+    authorize?("change states", @ticket.project) do
+      permitted.merge!(params.require(:comment).permit(:state_id))
     end
+    permitted
   end
 end

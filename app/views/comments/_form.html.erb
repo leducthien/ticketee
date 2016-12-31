@@ -8,6 +8,8 @@
         selected: @comment.state_id %>
     <% end %>
 
+    <%= render 'tags/form', :f => f %>
+        
     <%= f.submit %>
 
 <% end %>

@@ -1,6 +1,9 @@
 class Comment < ActiveRecord::Base
+  attr_accessor :tag_names
+
   before_create :set_previous_state
-  after_create :set_ticket_state
+  after_create :set_ticket_state, :associate_tags_to_ticket
+
   belongs_to :ticket
   belongs_to :user
   belongs_to :state
@@ -23,5 +26,9 @@ class Comment < ActiveRecord::Base
   def set_ticket_state
     self.ticket.state = self.state
     self.ticket.save!
+  end
+
+  def associate_tags_to_ticket
+    self.ticket.associate_tags_to_ticket(tag_names)
   end
 end
