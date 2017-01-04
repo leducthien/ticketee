@@ -1,9 +1,9 @@
 require 'spec_helper'
 require 'capybara/poltergeist'
+Capybara.javascript_driver = :poltergeist
 
 feature 'Create tickets' do
-  before do
-    Capybara.javascript_driver = :poltergeist
+  before do    
     # log_in_as FactoryGirl.create(:admin_user)
     project = FactoryGirl.create(:project, name: "Atom")
     @user = FactoryGirl.create(:user)

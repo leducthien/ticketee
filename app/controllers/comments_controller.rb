@@ -5,6 +5,7 @@ class CommentsController < ApplicationController
 
   def create
     @ticket = Ticket.find(params[:ticket_id])
+    sanitize_parameters!
     @comment = @ticket.comments.build(comment_params)
     @comment.user = current_user
     @project = @ticket.project
@@ -21,10 +22,19 @@ class CommentsController < ApplicationController
   private
 
   def comment_params
-    permitted = params.require(:comment).permit(:text, :tag_names)
-    authorize?("change states", @ticket.project) do
-      permitted.merge!(params.require(:comment).permit(:state_id))
+    permitted = params.require(:comment).permit(:text, :tag_names, :state_id)
+    # authorize?("change states", @ticket.project) do
+    #   permitted.merge!(params.require(:comment).permit(:state_id))
+    # end
+    # permitted
+  end
+
+  def sanitize_parameters!
+    if cannot?(:tags, @ticket.project) && !current_user.admin?
+      params[:comment].delete(:tag_names)
     end
-    permitted
+    if cannot?("change states", @ticket.project) && !current_user.admin?
+      params[:comment].delete(:state_id)
+    end
   end
 end

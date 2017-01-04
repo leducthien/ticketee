@@ -23,6 +23,8 @@ gem 'jbuilder', '~> 2.0'
 # bundle exec rake doc:rails generates the API under doc/api.
 gem 'sdoc', '~> 0.4.0', group: :doc
 
+gem 'rake', '< 11.0'
+
 # Use ActiveModel has_secure_password
 gem 'bcrypt', '~> 3.1.7'
 
@@ -35,8 +37,8 @@ gem 'bcrypt', '~> 3.1.7'
 # authorization
 gem 'cancan', '1.6.10'
 
-# gem 'selenium-webdriver', '3.0.3'
-gem 'poltergeist'
+
+
 
 # File upload
 gem 'carrierwave', '0.8.0'
@@ -52,6 +54,8 @@ group :test do
   gem 'capybara', "2.1.0"
   gem 'factory_girl_rails', '~> 4.2.1'
   gem 'database_cleaner', '1.0.1'
+  gem 'poltergeist'
+  # gem 'selenium-webdriver', '3.0.3'
 end
 
 group :development do
