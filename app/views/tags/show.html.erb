@@ -1,0 +1,9 @@
+<h1> List of tickets for tag: <%= @tag.name %> </h1>
+
+<ul>
+<% @tickets.each do |ticket| %>
+
+  <li><%= link_to ticket.title, project_ticket_path(ticket.project, ticket) %></li>
+
+<% end %>
+</ul>

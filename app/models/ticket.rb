@@ -15,15 +15,14 @@ class Ticket < ActiveRecord::Base
   has_and_belongs_to_many :tags
 
   def associate_tags_to_ticket(tags)
-    names = []
     if tags
       tags.split(' ').each do |name|
-        unless Tag.find_by(name: name)
-          names << Tag.create(name: name)
+        tag = Tag.find_or_create_by(name: name)
+        unless self.tags.exists?(tag.id)
+          self.tags << tag
         end
       end
     end
-    self.tags << names
   end
 
   private

@@ -6,5 +6,5 @@
       :remote => true,
       :id => "delete-#{tag.name.parameterize}" %>
   <% end %>
-  <%= tag.name %>
+  <%= link_to tag.name, ticket_tag_path(@ticket, tag) %>
 </li>
